@@ -6,7 +6,7 @@ import { nextRand } from "./libs/utils";
 import classNames from "classnames";
 import { calcAllStats } from "./libs/HistoryAnalyzer";
 
-const OPTION_SIZE = 4;
+const OPTION_SIZE = 6;
 const TIMESTAMP_OFFSET = 16523170000;
 
 const useQuiz = () => {

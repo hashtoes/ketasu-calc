@@ -22,3 +22,7 @@ export const sum =
       return acc + func(curr);
     }, 0);
   };
+
+export const toPrecision = (precision: number) => (num: number) => {
+  return Number(num.toPrecision(precision));
+};

@@ -1,4 +1,4 @@
-import { countIf, sum } from "./utils";
+import { countIf, sum, toPrecision } from "./utils";
 
 type HistoryPoint = {
   time: number;
@@ -30,6 +30,7 @@ const splitToSession = (history: number[]) => {
       ];
       continue;
     }
+    prevTime = history[i];
     session.push({
       time: history[i],
       isCorrect: history[++i] === 1,
@@ -45,6 +46,8 @@ type Stat = {
   correctRate: number;
   total: number;
 };
+const toThirdPrecision = toPrecision(3);
+
 const getDefaultStats = (): Stat => ({
   averageTime: 0,
   correctRate: 0,
@@ -55,25 +58,29 @@ const averageTimeAndCorrectRate = (session: HistoryPoint[]): Stat => {
     return getDefaultStats();
   }
   return {
-    averageTime:
+    averageTime: toThirdPrecision(
       (session[session.length - 1].time - session[0].time) /
-      (session.length - 1) /
-      10,
-    correctRate:
-      countIf((p: HistoryPoint) => p.isCorrect)(session) / session.length,
+        (session.length - 1) /
+        10
+    ),
+    correctRate: toThirdPrecision(
+      countIf((p: HistoryPoint) => p.isCorrect)(session) / session.length
+    ),
     total: session.length,
   };
 };
 
-export const calcAllStats = (history: number[]): {
-  allStats: Stat,
-  currentStats: Stat,
+export const calcAllStats = (
+  history: number[]
+): {
+  allStats: Stat;
+  currentStats: Stat;
 } => {
   if (history.length < 4) {
     return {
       allStats: getDefaultStats(),
       currentStats: getDefaultStats(),
-    }
+    };
   }
   const stats = splitToSession(history).map((session) =>
     averageTimeAndCorrectRate(session)
@@ -83,8 +90,8 @@ export const calcAllStats = (history: number[]): {
   const correctTotal = sum((e: Stat) => e.correctRate * e.total)(stats);
   return {
     allStats: {
-      averageTime: sumElaspedTime / (sumTotal - stats.length),
-      correctRate: Number((correctTotal / sumTotal).toPrecision(3)),
+      averageTime: toThirdPrecision(sumElaspedTime / (sumTotal - stats.length)),
+      correctRate: toThirdPrecision(correctTotal / sumTotal),
       total: sumTotal,
     },
     currentStats: stats[stats.length - 1],
