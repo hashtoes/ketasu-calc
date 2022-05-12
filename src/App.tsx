@@ -59,7 +59,7 @@ const App: FC = () => {
       <div>
         {quiz.options(answerIdx, OPTION_SIZE).map((option, idx) => (
           <button
-            className={classNames({
+            className={classNames(['btn'], {
               correct: toShowAnswer && answerIdx === idx,
             })}
             onClick={() => {
