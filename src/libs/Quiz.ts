@@ -2,23 +2,12 @@ import { NumberRepresentation } from "./NumberRepresentation";
 import { Operator } from "./Operator";
 
 export abstract class Quiz {
-  protected num1: NumberRepresentation;
-  protected num2: NumberRepresentation;
-
   constructor(
     protected op: Operator,
-    num1: NumberRepresentation,
-    num2: NumberRepresentation,
+    protected num1: NumberRepresentation,
+    protected num2: NumberRepresentation,
     private convert: (num: number) => string
-  ) {
-    if (op.requiresSort() && num1.value() < num2.value()) {
-      this.num1 = num2;
-      this.num2 = num1;
-      return;
-    }
-    this.num1 = num1;
-    this.num2 = num2;
-  }
+  ) {}
 
   public abstract getQuestion(): string;
 

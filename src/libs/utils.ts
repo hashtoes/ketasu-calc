@@ -1,5 +1,5 @@
-export const nextRand = (n: number) => {
-  return Math.floor(Math.random() * n);
+export const nextRand = (n: number, offset?: number) => {
+  return Math.floor(Math.random() * n) + (offset ?? 0);
 };
 export const chooseRand = <T>(arr: readonly T[]) => {
   return arr[nextRand(arr.length)];

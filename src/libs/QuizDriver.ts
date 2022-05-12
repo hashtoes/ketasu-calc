@@ -9,19 +9,32 @@ class QuizDriver {
     const op = chooseRand(Object.values<Operator>(operators));
     const suiteType = chooseRand(["japanese", "english"] as const);
     const { repr, conv } = getNumberSuite(suiteType);
-    const num1 = this.nextNum(repr);
-    const num2 = this.nextNum(repr, op);
-    const quizType = chooseRand(["TextText", "NumericText", "TextNumeric"] as const);
+    const { num: num1, digit: firstDigit } = this.nextNum(
+      repr,
+      op.firstOperandDigitGenerator()
+    );
+    const { num: num2 } = this.nextNum(
+      repr,
+      op.secondOperandDigitGenerator(firstDigit)
+    );
+    const quizType = chooseRand([
+      "TextText",
+      "NumericText",
+      "TextNumeric",
+    ] as const);
     return getQuiz(op, num1, num2, conv, quizType);
   }
 
   private nextNum(
     repr: (head: number, digit: number) => NumberRepresentation,
-    op?: Operator
+    digitGenerator: () => number
   ) {
     const head = chooseRand([1, 2, 5]);
-    const digit = nextRand(op?.constrainSecondOperand() ? 4 : 14);
-    return repr(head, digit);
+    const digit = digitGenerator();
+    return {
+      num: repr(head, digit),
+      digit,
+    };
   }
 }
 
