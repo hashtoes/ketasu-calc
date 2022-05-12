@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/ketasu-calc/static/css/main.f86e1231.css",
+    "main.js": "/ketasu-calc/static/js/main.fbe88470.js",
+    "static/js/787.ed7c7fb7.chunk.js": "/ketasu-calc/static/js/787.ed7c7fb7.chunk.js",
+    "index.html": "/ketasu-calc/index.html",
+    "main.f86e1231.css.map": "/ketasu-calc/static/css/main.f86e1231.css.map",
+    "main.fbe88470.js.map": "/ketasu-calc/static/js/main.fbe88470.js.map",
+    "787.ed7c7fb7.chunk.js.map": "/ketasu-calc/static/js/787.ed7c7fb7.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.f86e1231.css",
+    "static/js/main.fbe88470.js"
+  ]
+}
